@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "709005649763",
+    "project_id": "pracial2dam",
+    "storage_bucket": "pracial2dam.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709005649763:android:4f3c17edb362e329379556",
+        "android_client_info": {
+          "package_name": "com.example.pracial2dam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4f2UGAVG-3yM_pY5FMuq9hKNN32KDsVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
