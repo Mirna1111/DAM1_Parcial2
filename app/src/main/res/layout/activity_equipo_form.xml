@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvFormTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar Equipo"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del equipo (Ej: Laptop Dell)"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etNumeroSerie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número de Serie"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etCodigoActivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Código de Activo"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/etUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ubicación (Ej: Contabilidad)"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado del Equipo"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rbOperativo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operativo"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbMantenimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mantenimiento"
+                android:layout_marginStart="8dp" />
+
+            <RadioButton
+                android:id="@+id/rbInactivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inactivo"
+                android:layout_marginStart="8dp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSaveEquipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Equipo"
+            android:textAllCaps="false"
+            android:layout_marginTop="32dp" />
+
+    </LinearLayout>
+</ScrollView>
