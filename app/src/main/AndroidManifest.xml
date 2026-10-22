@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pracial2Dam">
 
+        <!-- Clave API de Google Maps -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCD61i842YtPNMg30wPvBGDEqAARRJoxn8" />
+
+        <!-- Splash Screen -->
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true">
@@ -21,10 +27,15 @@
             </intent-filter>
         </activity>
 
+        <!-- Actividades de la App -->
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.MainActivity" />
+
+        <!-- pantalla del formulario de Equipos -->
+        <activity android:name=".ui.EquipoFormActivity" />
+        <activity android:name=".ui.MapActivity" />
 
     </application>
 

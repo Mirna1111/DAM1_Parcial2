@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.pracial2dam" />
+                  <option name="mobileSdkAppId" value="1:709005649763:android:4f3c17edb362e329379556" />
+                  <option name="projectId" value="pracial2dam" />
+                  <option name="projectNumber" value="709005649763" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

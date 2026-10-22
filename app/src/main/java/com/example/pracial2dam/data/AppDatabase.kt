@@ -8,13 +8,14 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [User::class],
-    version = 2,
+    entities = [User::class, Equipo::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun equipoDao(): EquipoDao
 
     companion object {
 
@@ -23,7 +24,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
-
                 db.execSQL(
                     """
                     CREATE TABLE users_new (
@@ -55,6 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "app_database"
                 )
                     .addMigrations(MIGRATION_1_2)
+                    .fallbackToDestructiveMigration() // Recrea las tablas si la version cambia a 3
                     .build()
 
                 INSTANCE = instance

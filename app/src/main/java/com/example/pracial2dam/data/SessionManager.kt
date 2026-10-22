@@ -36,8 +36,8 @@ class SessionManager(context: Context) {
     }
 
     fun setCurrentUser(email: String) {
-        // Compatibilidad con llamadas anteriores.
-        // Firebase Authentication gestiona la sesión.
+        // Compatibilidad con llamadas anteriores
+        // Firebase Authentication gestiona la sesion
     }
 
     fun logout() {

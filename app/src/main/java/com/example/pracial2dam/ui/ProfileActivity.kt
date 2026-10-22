@@ -296,52 +296,79 @@ class ProfileActivity : AppCompatActivity() {
                     this@ProfileActivity
                 )
 
+                // 1. Sincronizar Usuario Pending si aplica
                 val user = withContext(Dispatchers.IO) {
                     db.userDao().getUserByEmail(email)
                 }
 
-                if (user == null) {
-                    mostrarMensaje(
-                        "No se encontró el usuario local"
-                    )
-                    return@launch
-                }
+                if (user != null && !user.isSynced) {
+                    firestore.collection("users")
+                        .document(firebaseUser.uid)
+                        .set(
+                            mapOf(
+                                "name" to user.name,
+                                "email" to user.email
+                            ),
+                            SetOptions.merge()
+                        )
+                        .await()
 
-                if (user.isSynced) {
+                    val syncedUser = user.copy(isSynced = true)
+                    withContext(Dispatchers.IO) {
+                        db.userDao().updateUser(syncedUser)
+                    }
+                    currentUser = syncedUser
                     updateSyncBadge(true)
+                }
+
+                // 2. Sincronizar Equipos Pendientes de Room -> Firestore
+                val pendingEquipos = withContext(Dispatchers.IO) {
+                    db.equipoDao().getPendingEquipos()
+                }
+
+                var equiposSincronizadosCount = 0
+
+                for (equipo in pendingEquipos) {
+                    try {
+                        val equipoMap = mapOf(
+                            "id" to equipo.id,
+                            "nombre" to equipo.nombre,
+                            "numeroSerie" to equipo.numeroSerie,
+                            "codigoActivo" to equipo.codigoActivo,
+                            "ubicacion" to equipo.ubicacion,
+                            "estado" to equipo.estado
+                        )
+
+                        firestore.collection("equipos")
+                            .document(equipo.id)
+                            .set(equipoMap, SetOptions.merge())
+                            .await()
+
+                        withContext(Dispatchers.IO) {
+                            db.equipoDao().markAsSynced(equipo.id)
+                        }
+
+                        equiposSincronizadosCount++
+                    } catch (_: Exception) {
+                        // Si falla un registro individual, continúa con los demás
+                    }
+                }
+
+                val userIsSynced = currentUser?.isSynced ?: true
+                if (userIsSynced) {
+                    updateSyncBadge(true)
+                }
+
+                if (equiposSincronizadosCount > 0) {
+                    mostrarMensaje("Sincronización completada ($equiposSincronizadosCount equipos actualizados)")
+                } else {
                     mostrarMensaje("Todo está sincronizado")
-                    return@launch
                 }
-
-                firestore.collection("users")
-                    .document(firebaseUser.uid)
-                    .set(
-                        mapOf(
-                            "name" to user.name,
-                            "email" to user.email
-                        ),
-                        SetOptions.merge()
-                    )
-                    .await()
-
-                val syncedUser =
-                    user.copy(isSynced = true)
-
-                withContext(Dispatchers.IO) {
-                    db.userDao().updateUser(syncedUser)
-                }
-
-                currentUser = syncedUser
-                updateSyncBadge(true)
-
-                mostrarMensaje(
-                    "Sincronización completada correctamente"
-                )
 
             } catch (e: Exception) {
                 updateSyncBadge(false)
                 mostrarMensaje(
-                    "No se pudo sincronizar. Intenta nuevamente."
+                    "Error al sincronizar: ${e.localizedMessage}"
                 )
 
             } finally {
